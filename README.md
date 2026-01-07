@@ -6,7 +6,7 @@ Aplicação web moderna de **Notícias e Blog**, desenvolvida com **React**, que
 
 ## 📸 Preview
 Interface limpa, moderna e responsiva, focada na leitura de notícias e artigos.
-![Preview do projeto](./public/preview.png)
+![Preview do projeto](news-blog-app/public/preview.png)
 
 ---
 
