@@ -8,35 +8,36 @@ const Weather = () => {
 
   useEffect(() => {
     const fetchDefaultLocation = async () => {
-      const defaultLocation = 'Tbilisi'
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${defaultLocation}&units=Metric&appid=0857bdfbf9822bcb5f4d0f481d5e160a`
+      try {
+        const defaultLocation = 'São Paulo'
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${defaultLocation}&units=metric&lang=pt_br&appid=0857bdfbf9822bcb5f4d0f481d5e160a`
 
-      const response = await axios.get(url)
-      setData(response.data)
+        const response = await axios.get(url)
+        setData(response.data)
+      } catch (error) {
+        console.error('Erro ao buscar clima padrão', error)
+      }
     }
+
     fetchDefaultLocation()
   }, [])
 
   const search = async () => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=Metric&appid=0857bdfbf9822bcb5f4d0f481d5e160a`
+    if (!location) return
+
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&lang=pt_br&appid=0857bdfbf9822bcb5f4d0f481d5e160a`
 
     try {
       const response = await axios.get(url)
-      if (response.data.cod !== 200) {
-        setData({ notFound: true })
-      } else {
-        setData(response.data)
-        setLocation('')
-      }
+      setData(response.data)
+      setLocation('')
     } catch (error) {
       if (error.response && error.response.status === 404) {
         setData({ notFound: true })
       } else {
-        console.error('An unexpected error occurred', error)
+        console.error('Erro inesperado', error)
       }
     }
-
-    console.log(data)
   }
 
   const handleInputChange = (e) => {
